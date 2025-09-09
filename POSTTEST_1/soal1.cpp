@@ -1,6 +1,13 @@
 #include <iostream>
 using namespace std;
 
+/*maksud dari singkatan
+k3 = kelipatan 3
+i0 = index 0
+i7 = index 7
+temp = temporary/sementara
+*/
+
 void tukar (int *k3, int size) {
     int *i0 = k3;
     int *i7 = k3 + size - 1;
@@ -28,10 +35,9 @@ int main() {
     for(int i = 0; i < 7; i++) {
         cout << k3[i] << " ";
     }
-    cout << "\n" << endl;
 
     tukar(k3,7);
-    cout << "Array kelipatan 3 setelah dibalik:" << endl;
+    cout << "\n\nArray kelipatan 3 setelah dibalik:" << endl;
     for(int i = 0; i < 7; i++) {
         cout << k3[i] << " ";
     }
