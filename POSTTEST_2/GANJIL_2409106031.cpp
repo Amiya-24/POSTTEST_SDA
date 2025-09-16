@@ -103,7 +103,7 @@ void add_item(Node *&head) {
     cout << "Masukkan tipe item (Weapon/Utility/Armor): ";
     getline(cin, node_baru->data.tipe);
 
-    node_baru->data.jumlah = 1;
+    node_baru->data.jumlah = 31;
     node_baru->next = nullptr;
 
     if (head == nullptr) {
