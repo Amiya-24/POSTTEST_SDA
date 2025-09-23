@@ -17,28 +17,9 @@ struct Node {
     Node *next;
 };
 
-void tampilkan_menu() {
-    const int menu_width = 40;
-    const string header_title = "GAME INVENTORY MANAGEMENT";
-    const string header_id = idn.nama + " - " + idn.nim;
-    
-    int spasi_title = (menu_width - header_title.length()) / 2;
-    int spasi_id = (menu_width - header_id.length()) / 2;
-
-    cout << "\n" << string(menu_width, '=') << "\n";
-    cout << "|" << string(spasi_title, ' ') << header_title << string(menu_width - header_title.length() - spasi_title - 2, ' ') << "|\n";
-    cout << "|" << string(spasi_id, ' ') << header_id << string(menu_width - header_id.length() - spasi_id - 2, ' ') << "|\n";
-    cout << string(menu_width, '=') << "\n";
-    cout << "| 1. Tambah Item Baru" << string(menu_width - 22, ' ') << "|\n";
-    cout << "| 2. Sisipkan Item" << string(menu_width - 19, ' ') << "|\n";
-    cout << "| 3. Hapus Item Terakhir" << string(menu_width - 25, ' ') << "|\n";
-    cout << "| 4. Gunakan Item" << string(menu_width - 18, ' ') << "|\n";
-    cout << "| 5. Tampilkan Inventory" << string(menu_width - 25, ' ') << "|\n";
-    cout << "| 0. Keluar" << string(menu_width - 12, ' ') << "|\n";
-    cout << string(menu_width, '=') << "\n";
-    cout << "Pilih opsi: ";
-};
-
+int get_item_amount();
+int get_insert_position();
+void show_menu();
 void add_item(Node *&head);
 void place_item(Node *&head);
 void del_last(Node *&head);
@@ -56,7 +37,7 @@ int main() {
     int input;
 
     while (loop == true) {
-        tampilkan_menu();
+        show_menu();
         cin >> input;
         
         switch (input) {
@@ -93,6 +74,43 @@ int main() {
     return 0;
 }
 
+int get_item_amount() {
+    if (idn.nim.length() >= 2) {
+        string dua_digit = idn.nim.substr(idn.nim.length() - 2);
+        return stoi(dua_digit);
+    }
+    return 1;
+}
+
+int get_insert_position() {
+    if (!idn.nim.empty() && isdigit(idn.nim.back())) {
+        return (idn.nim.back() - '0') + 1;
+    }
+    return 2;
+}
+
+void show_menu() {
+    const int menu_width = 40;
+    const string header_title = "GAME INVENTORY MANAGEMENT";
+    const string header_id = idn.nama + " - " + idn.nim;
+    
+    int spasi_title = (menu_width - header_title.length()) / 2;
+    int spasi_id = (menu_width - header_id.length()) / 2;
+
+    cout << "\n" << string(menu_width, '=') << "\n";
+    cout << "|" << string(spasi_title, ' ') << header_title << string(menu_width - header_title.length() - spasi_title - 2, ' ') << "|\n";
+    cout << "|" << string(spasi_id, ' ') << header_id << string(menu_width - header_id.length() - spasi_id - 2, ' ') << "|\n";
+    cout << string(menu_width, '=') << "\n";
+    cout << "| 1. Tambah Item Baru" << string(menu_width - 22, ' ') << "|\n";
+    cout << "| 2. Sisipkan Item" << string(menu_width - 19, ' ') << "|\n";
+    cout << "| 3. Hapus Item Terakhir" << string(menu_width - 25, ' ') << "|\n";
+    cout << "| 4. Gunakan Item" << string(menu_width - 18, ' ') << "|\n";
+    cout << "| 5. Tampilkan Inventory" << string(menu_width - 25, ' ') << "|\n";
+    cout << "| 0. Keluar" << string(menu_width - 12, ' ') << "|\n";
+    cout << string(menu_width, '=') << "\n";
+    cout << "Pilih opsi: ";
+};
+
 void add_item(Node *&head) {
     Node *node_baru = new Node;
 
@@ -103,7 +121,7 @@ void add_item(Node *&head) {
     cout << "Masukkan tipe item (Weapon/Utility/Armor): ";
     getline(cin, node_baru->data.tipe);
 
-    node_baru->data.jumlah = 31;
+    node_baru->data.jumlah = get_item_amount();
     node_baru->next = nullptr;
 
     if (head == nullptr) {
@@ -128,10 +146,10 @@ void place_item(Node *&head) {
     cout << "Masukkan tipe item (Weapon/Utility/Armor): ";
     getline(cin, node_baru->data.tipe);
     
-    node_baru->data.jumlah = 31;
+    node_baru->data.jumlah = get_item_amount();
     node_baru->next = nullptr;
 
-    int pos = 2;
+    int pos = get_insert_position();
     if (pos <= 1 || head == nullptr) {
         node_baru->next = head;
         head = node_baru;
@@ -143,7 +161,6 @@ void place_item(Node *&head) {
             temp = temp->next;
             cur_pos++;
         }
-
         node_baru->next = temp->next;
         temp->next = node_baru;
     }
