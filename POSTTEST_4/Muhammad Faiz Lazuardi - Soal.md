@@ -1,6 +1,6 @@
 ## SOAL 1
 
-Buat sebuah fungsi yang menerima string dan mengembalikannya dalam keadaan terbalik. Anda harus menggunakan struktur data Stack yang diimplementasikan secara manual menggunakan singly linked list.
+Buat sebuah fungsi yang menerima string dan mengembalikannya dalam keadaan terbalik. Anda harus menggunakan struktur data Stack yang diimplementasikan secara manual menggunakan single linked list.
 
 Struktur Data:
 
@@ -11,7 +11,7 @@ using namespace std;
 
 struct Node {
     char data;
-    Node* next;
+    Node *next;
 };
 ```
 
