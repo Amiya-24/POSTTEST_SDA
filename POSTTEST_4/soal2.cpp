@@ -23,17 +23,24 @@ char pop(Node*& top) {
 
 bool areBracketsBalanced(string expr) {
     Node* stackTop = nullptr;
-    
-    for (char c : expr) { // 1. Loop setiap karakter dalam `expr`.
 
-        if (c == '(' || c == '{' || c == '[') { // 2. Jika karakter adalah kurung buka '(', '{', '['
+    // 1. Loop setiap karakter dalam `expr`.
+    for (char c : expr) { 
+
+        // 2. Jika karakter adalah kurung buka '(', '{', '['
+        if (c == '(' || c == '{' || c == '[') { 
             push(stackTop, c); // push ke stack.
+            
+        // 3. Jika karakter adalah kurung tutup ')', '}', ']', cek:
+        } else if (c == ')' || c == '}' || c == ']') { 
 
-        } else if (c == ')' || c == '}' || c == ']') { // 3. Jika karakter adalah kurung tutup ')', '}', ']'
-            if (stackTop == nullptr) { // a. Apakah stack kosong? Jika ya, return false.
+            // a. Apakah stack kosong? Jika ya, return false.
+            if (stackTop == nullptr) { 
                 return false;
             }
-            char topChar = pop(stackTop); // b. Pop stack, lalu cek apakah kurung tutup cocok dengan kurung buka. Jika tidak, return false.
+
+            // b. Pop stack, lalu cek apakah kurung tutup cocok dengan kurung buka. Jika tidak, return false.
+            char topChar = pop(stackTop); 
             if ((c == ')' && topChar != '(') ||
                 (c == '}' && topChar != '{') ||
                 (c == ']' && topChar != '[')) {
